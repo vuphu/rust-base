@@ -1,3 +1,6 @@
+mod core;
+mod todos;
+
 use actix_web::{get, App, HttpServer, Responder};
 
 #[get("/")]
