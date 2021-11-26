@@ -1,3 +1,4 @@
+use crate::core::entities::base_entity::BaseEntity;
 use chrono::{serde::ts_milliseconds, serde::ts_milliseconds_option, DateTime, Utc};
 use serde::Serialize;
 use uuid::Uuid;
@@ -13,6 +14,8 @@ pub struct TodoEntity {
     #[serde(with = "ts_milliseconds")]
     pub updated_at: DateTime<Utc>,
 }
+
+impl BaseEntity for TodoEntity {}
 
 impl TodoEntity {
     pub fn new(title: String) -> Self {

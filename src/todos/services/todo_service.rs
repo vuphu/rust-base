@@ -1,3 +1,4 @@
+use crate::core::services::base_service::BaseService;
 use async_trait::async_trait;
 
 use crate::todos::entities::todo_entity::TodoEntity;
@@ -7,6 +8,8 @@ use crate::todos::repositories::todo_repository::{TodoRepository, TodoRepository
 pub trait TodoService: Sync + Send {
     async fn get_todos(&self) -> Vec<TodoEntity>;
 }
+
+impl<T> BaseService for T where T: TodoService {}
 
 pub struct TodoServiceImpl {
     pub todo_repository: Box<dyn TodoRepository>,

@@ -1,11 +1,14 @@
 use async_trait::async_trait;
 
+use crate::core::repositories::base_repository::BaseRepository;
 use crate::todos::entities::todo_entity::TodoEntity;
 
 #[async_trait]
-pub trait TodoRepository: Sync + Send {
+pub trait TodoRepository: BaseRepository + Sync + Send {
     async fn get_todos(&self) -> Vec<TodoEntity>;
 }
+
+impl<T> BaseRepository for T where T: TodoRepository {}
 
 pub struct TodoRepositoryImpl {}
 
