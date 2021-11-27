@@ -12,3 +12,8 @@ chrono = { version = "0.4", features = ["serde"] }
 serde = { version = "1.0.130", features = ["derive"] }
 async-trait = "0.1.51"
 uuid = { version = "0.8", features = ["v4"] }
+diesel = "1.4.8"
+dotenv = "0.15.0"
+tokio = "1.14.0"
+mongodb = "2.0.2"
+err-derive = "0.3.0"

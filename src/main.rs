@@ -1,4 +1,5 @@
 use actix_web::{get, App, HttpServer, Responder};
+use dotenv::dotenv;
 
 mod core;
 mod todos;
@@ -10,6 +11,8 @@ async fn index() -> impl Responder {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    dotenv().ok();
+
     HttpServer::new(|| {
         App::new()
             .service(index)

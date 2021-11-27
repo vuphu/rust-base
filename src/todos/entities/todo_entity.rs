@@ -1,9 +1,10 @@
-use crate::core::entities::base_entity::BaseEntity;
 use chrono::{serde::ts_milliseconds, serde::ts_milliseconds_option, DateTime, Utc};
 use serde::Serialize;
 use uuid::Uuid;
 
-#[derive(Serialize)]
+use crate::core::entities::base_entity::BaseEntity;
+
+#[derive(Serialize, Clone)]
 pub struct TodoEntity {
     pub id: String,
     pub title: String,
@@ -18,11 +19,11 @@ pub struct TodoEntity {
 impl BaseEntity for TodoEntity {}
 
 impl TodoEntity {
-    pub fn new(title: String) -> Self {
+    pub fn new(title: String, deadline: Option<DateTime<Utc>>) -> Self {
         return TodoEntity {
             id: Uuid::new_v4().to_string(),
             title,
-            deadline: Option::from(Utc::now()),
+            deadline,
             created_at: Utc::now(),
             updated_at: Utc::now(),
         };
