@@ -1,14 +1,15 @@
 use chrono::{serde::ts_milliseconds, serde::ts_milliseconds_option, DateTime, Utc};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
 use crate::core::entities::base_entity::BaseEntity;
 
-#[derive(Serialize, Clone)]
+#[derive(Serialize, Deserialize, Clone)]
 pub struct TodoEntity {
     pub id: String,
     pub title: String,
     #[serde(with = "ts_milliseconds_option")]
+    #[serde(default)]
     pub deadline: Option<DateTime<Utc>>,
     #[serde(with = "ts_milliseconds")]
     pub created_at: DateTime<Utc>,

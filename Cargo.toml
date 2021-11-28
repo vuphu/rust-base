@@ -14,6 +14,11 @@ async-trait = "0.1.51"
 uuid = { version = "0.8", features = ["v4"] }
 diesel = "1.4.8"
 dotenv = "0.15.0"
-tokio = "1.14.0"
-mongodb = "2.0.2"
 err-derive = "0.3.0"
+futures = "0.3.18"
+once_cell = "1.8.0"
+
+[dependencies.mongodb]
+version = "2.0.0"
+default-features = false
+features = ["async-std-runtime"]
