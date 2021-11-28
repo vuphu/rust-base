@@ -3,7 +3,6 @@ use async_trait::async_trait;
 use mongodb::Collection;
 
 use crate::core::repositories::base_mongo_repository::BaseMongoRepository;
-use crate::core::repositories::base_sql_repository::BaseSQLRepository;
 use crate::todos::entities::todo_entity::TodoEntity;
 
 #[async_trait]
@@ -22,8 +21,8 @@ impl TodoMongoRepository {
 }
 
 impl BaseMongoRepository<TodoEntity> for TodoMongoRepository {
-    fn collection(&self) -> Collection<TodoEntity> {
-        return self.collection.clone();
+    fn collection(&self) -> &Collection<TodoEntity> {
+        return &self.collection;
     }
 }
 

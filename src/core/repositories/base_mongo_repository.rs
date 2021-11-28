@@ -8,7 +8,7 @@ use crate::core::entities::base_entity::BaseEntity;
 
 #[async_trait]
 pub trait BaseMongoRepository<T: 'static + BaseEntity>: Sync + Send {
-    fn collection(&self) -> Collection<T>;
+    fn collection(&self) -> &Collection<T>;
 
     async fn find(&self) -> Result<Vec<T>, AppError> {
         let mut cursor = self.collection().find(doc! {}, None).await?;
