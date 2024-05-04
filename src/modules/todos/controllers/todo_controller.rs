@@ -1,7 +1,7 @@
 use actix_web::{get, post, web, HttpResponse, Responder};
+use crate::modules::todos::dto::create_todo_dto::CreateTodoDto;
+use crate::modules::todos::services::todo_service::{TodoService, TodoServiceImpl};
 
-use crate::todos::dto::create_todo_dto::CreateTodoDto;
-use crate::todos::services::todo_service::{TodoService, TodoServiceImpl};
 
 pub fn configure(config: &mut web::ServiceConfig) {
     let todo_service: Box<dyn TodoService> = Box::new(TodoServiceImpl::new());
