@@ -3,7 +3,7 @@ use async_trait::async_trait;
 use mongodb::Collection;
 
 use crate::core::repositories::base_mongo_repository::BaseMongoRepository;
-use crate::todos::entities::todo_entity::TodoEntity;
+use crate::modules::todos::entities::todo_entity::TodoEntity;
 
 #[async_trait]
 pub trait TodoRepository: BaseMongoRepository<TodoEntity> + Sync + Send {}

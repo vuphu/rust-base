@@ -2,9 +2,9 @@ use async_trait::async_trait;
 
 use crate::core::common::error::AppError;
 use crate::core::services::base_service::BaseService;
-use crate::todos::dto::create_todo_dto::CreateTodoDto;
-use crate::todos::entities::todo_entity::TodoEntity;
-use crate::todos::repositories::todo_repository::{TodoMongoRepository, TodoRepository};
+use crate::modules::todos::dto::create_todo_dto::CreateTodoDto;
+use crate::modules::todos::entities::todo_entity::TodoEntity;
+use crate::modules::todos::repositories::todo_repository::{TodoMongoRepository, TodoRepository};
 
 #[async_trait]
 pub trait TodoService: Sync + Send {

@@ -3,7 +3,7 @@ use dotenv::dotenv;
 
 mod config;
 mod core;
-mod todos;
+mod modules;
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -19,9 +19,9 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(|| {
         App::new()
             .service(index)
-            .configure(|cfg| todos::configure(cfg))
+            .configure(|cfg| modules::todos::configure(cfg))
     })
-    .bind("127.0.0.1:5000")?
-    .run()
-    .await
+        .bind("127.0.0.1:5000")?
+        .run()
+        .await
 }
