@@ -2,7 +2,7 @@ use chrono::{serde::ts_milliseconds, serde::ts_milliseconds_option, DateTime, Ut
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
-use crate::core::entities::base_entity::BaseEntity;
+use crate::common::entities::base_entity::BaseEntity;
 
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TodoEntity {

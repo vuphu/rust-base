@@ -2,8 +2,8 @@ use actix_web::{get, App, HttpServer, Responder};
 use dotenv::dotenv;
 
 mod config;
-mod core;
 mod modules;
+mod common;
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -21,7 +21,7 @@ async fn main() -> std::io::Result<()> {
             .service(index)
             .configure(|cfg| modules::todos::configure(cfg))
     })
-        .bind("127.0.0.1:5000")?
+        .bind("0.0.0.0:3000")?
         .run()
         .await
 }

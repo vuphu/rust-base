@@ -3,8 +3,8 @@ use futures::TryStreamExt;
 use mongodb::bson::doc;
 use mongodb::Collection;
 
-use crate::core::common::error::AppError;
-use crate::core::entities::base_entity::BaseEntity;
+use crate::common::base::error::AppError;
+use crate::common::entities::base_entity::BaseEntity;
 
 #[async_trait]
 pub trait BaseMongoRepository<T: 'static + BaseEntity>: Sync + Send {

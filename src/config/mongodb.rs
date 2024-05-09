@@ -2,7 +2,7 @@ use mongodb::options::ClientOptions;
 use mongodb::{Client, Database};
 use once_cell::sync::OnceCell;
 
-use crate::core::common::error::AppError;
+use crate::common::base::error::AppError;
 
 static MONGO_DATABASE: OnceCell<Database> = OnceCell::new();
 

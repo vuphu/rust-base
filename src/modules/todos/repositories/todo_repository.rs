@@ -2,7 +2,7 @@ use crate::config::mongodb::get_database;
 use async_trait::async_trait;
 use mongodb::Collection;
 
-use crate::core::repositories::base_mongo_repository::BaseMongoRepository;
+use crate::common::repositories::base_mongo_repository::BaseMongoRepository;
 use crate::modules::todos::entities::todo_entity::TodoEntity;
 
 #[async_trait]
