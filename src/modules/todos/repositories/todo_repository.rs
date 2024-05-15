@@ -2,46 +2,31 @@ use crate::config::mongodb::get_database;
 use async_trait::async_trait;
 use mongodb::Collection;
 
-use crate::common::repositories::base_mongo_repository::BaseMongoRepository;
+use crate::common::repositories::base_repository::{BaseRepository, MongoRepository};
 use crate::modules::todos::entities::todo_entity::TodoEntity;
 
 #[async_trait]
-pub trait TodoRepository: BaseMongoRepository<TodoEntity> + Sync + Send {}
+pub trait TodoRepository: BaseRepository<TodoEntity> + Sync + Send {}
 
-/// TodoMongoRepository
-pub struct TodoMongoRepository {
+pub struct TodoRepositoryImpl {
     collection: Collection<TodoEntity>,
 }
 
-impl TodoMongoRepository {
+impl TodoRepositoryImpl {
     pub fn new() -> Self {
         let collection = get_database().unwrap().collection::<TodoEntity>("todos");
-        return TodoMongoRepository { collection };
+        return TodoRepositoryImpl { collection };
     }
 }
 
-impl BaseMongoRepository<TodoEntity> for TodoMongoRepository {
+impl BaseRepository<TodoEntity> for TodoRepositoryImpl {}
+
+impl MongoRepository<TodoEntity> for TodoRepositoryImpl {
     fn collection(&self) -> &Collection<TodoEntity> {
         return &self.collection;
     }
 }
 
 #[async_trait]
-impl TodoRepository for TodoMongoRepository {}
+impl TodoRepository for TodoRepositoryImpl {}
 
-// SQL implementation
-
-// #[async_trait]
-// pub trait TodoRepository: BaseSQLRepository<TodoEntity> + Sync + Send {}
-
-// /// TodoSQLRepository
-// pub struct TodoSQLRepository {}
-//
-// impl TodoSQLRepository {
-//     pub fn new() -> Self {
-//         return TodoSQLRepository {};
-//     }
-// }
-//
-// #[async_trait]
-// impl BaseSQLRepository<TodoEntity> for TodoSQLRepository {}
