@@ -29,4 +29,3 @@ impl MongoRepository<TodoEntity> for TodoRepositoryImpl {
 
 #[async_trait]
 impl TodoRepository for TodoRepositoryImpl {}
-

@@ -1,9 +1,9 @@
 use actix_web::{get, App, HttpServer, Responder};
 use dotenv::dotenv;
 
+mod common;
 mod config;
 mod modules;
-mod common;
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -13,7 +13,6 @@ async fn index() -> impl Responder {
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     dotenv().ok();
-
     config::mongodb::setup_mongo().await.unwrap();
 
     HttpServer::new(|| {
@@ -21,7 +20,7 @@ async fn main() -> std::io::Result<()> {
             .service(index)
             .configure(|cfg| modules::todos::configure(cfg))
     })
-        .bind("0.0.0.0:3000")?
-        .run()
-        .await
+    .bind("0.0.0.0:3000")?
+    .run()
+    .await
 }

@@ -4,7 +4,7 @@ use crate::common::base::error::AppError;
 use crate::common::services::base_service::BaseService;
 use crate::modules::todos::dto::create_todo_dto::CreateTodoDto;
 use crate::modules::todos::entities::todo_entity::TodoEntity;
-use crate::modules::todos::repositories::todo_repository::{TodoRepositoryImpl, TodoRepository};
+use crate::modules::todos::repositories::todo_repository::{TodoRepository, TodoRepositoryImpl};
 
 #[async_trait]
 pub trait TodoService: Sync + Send {
