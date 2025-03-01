@@ -1,4 +1,5 @@
 use err_derive::Error;
+use sea_orm::DbErr;
 use serde::Serialize;
 
 #[derive(Serialize, Debug, Error)]
@@ -19,9 +20,9 @@ impl AppError {
     }
 }
 
-impl std::convert::From<mongodb::error::Error> for AppError {
-    fn from(err: mongodb::error::Error) -> Self {
-        AppError::internal_error(format!("{:?}", err))
+impl std::convert::From<sea_orm::DbErr> for AppError {
+    fn from(value: DbErr) -> Self {
+        AppError::internal_error(format!("{}", value))
     }
 }
 

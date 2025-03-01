@@ -1,24 +1,21 @@
 [package]
-name = "rustlang-base-structure"
-version = "0.1.0"
+name = "rust-base"
+version = "1.0.0"
 authors = ["vuphu <vuphu.itus@gmail.com>"]
-edition = "2018"
+edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-actix-web = "3"
-chrono = { version = "0.4", features = ["serde"] }
-serde = { version = "1.0.130", features = ["derive"] }
-async-trait = "0.1.51"
-uuid = { version = "0.8", features = ["v4"] }
-diesel = "1.4.8"
+actix-web = "4.9.0"
+chrono = { version = "0.4.40", features = ["serde"] }
+serde = { version = "1.0.218", features = ["derive"] }
+async-trait = "0.1.86"
+uuid = { version = "1.15.1", features = ["v4"] }
 dotenv = "0.15.0"
-err-derive = "0.3.0"
-futures = "0.3.18"
-once_cell = "1.8.0"
+err-derive = "0.3.1"
+futures = "0.3.31"
+utoipa = { version = "5.3.1", features = ["actix_extras", "chrono"] }
+utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web"] }
+sea-orm = { version = "1.1.0", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
 
-[dependencies.mongodb]
-version = "2.0.0"
-default-features = false
-features = ["async-std-runtime"]
