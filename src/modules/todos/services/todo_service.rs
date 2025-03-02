@@ -1,41 +1,33 @@
-use async_trait::async_trait;
-
 use crate::common::base::error::AppError;
 use crate::common::services::base_service::BaseService;
-use crate::modules::todos::dto::create_todo_dto::CreateTodoDto;
-use crate::modules::todos::entities::todo_entity::TodoEntity;
-use crate::modules::todos::repositories::todo_repository::{TodoRepository, TodoRepositoryImpl};
+use crate::modules::todos::dto::requests::create_todo_request::CreateTodoRequestDto;
+use crate::modules::todos::models::todo;
+use crate::modules::todos::repositories::todo_repository::TodoRepository;
 
-#[async_trait]
-pub trait TodoService: Sync + Send {
-    async fn get_todos(&self) -> Result<Vec<TodoEntity>, AppError>;
-    async fn create_todo(&self, data: CreateTodoDto) -> Result<TodoEntity, AppError>;
+pub struct TodoService {
+    pub todo_repository: TodoRepository,
 }
 
-impl<T> BaseService for T where T: TodoService {}
+impl BaseService for TodoService {}
 
-pub struct TodoServiceImpl {
-    pub todo_repository: Box<dyn TodoRepository>,
-}
-
-impl TodoServiceImpl {
+impl TodoService {
     pub fn new() -> Self {
-        return TodoServiceImpl {
-            todo_repository: Box::new(TodoRepositoryImpl::new()),
+        return TodoService {
+            todo_repository: TodoRepository::new(),
         };
     }
 }
 
-#[async_trait]
-impl TodoService for TodoServiceImpl {
-    async fn get_todos(&self) -> Result<Vec<TodoEntity>, AppError> {
-        return self.todo_repository.find().await;
+impl TodoService {
+    pub async fn get_todos(&self) -> Result<Vec<todo::Model>, AppError> {
+        self.todo_repository.find().await
     }
 
-    async fn create_todo(&self, data: CreateTodoDto) -> Result<TodoEntity, AppError> {
-        return self
+    pub async fn create_todo(&self, dto: CreateTodoRequestDto) -> Result<todo::Model, AppError> {
+        let new_todo = self
             .todo_repository
-            .create(TodoEntity::new(data.title, data.deadline))
-            .await;
+            .create_one(dto.title, dto.due_date)
+            .await?;
+        Ok(new_todo)
     }
 }
