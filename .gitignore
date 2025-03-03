@@ -1,3 +1,7 @@
-target
+target/
+debug/
+
+.DS_Store
 /.idea
+
 .env
