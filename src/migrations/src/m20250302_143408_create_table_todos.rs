@@ -14,7 +14,7 @@ impl MigrationTrait for Migration {
                     .col(
                         ColumnDef::new(Todos::Id)
                             .uuid()
-                            .default(Expr::cust("gen_random_uuid()"))
+                            .default(Expr::cust("uuidv7()"))
                             .not_null()
                             .primary_key(),
                     )

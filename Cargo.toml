@@ -4,18 +4,29 @@ version = "1.0.0"
 authors = ["vuphu <vuphu.itus@gmail.com>"]
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[workspace]
+members = [
+    "src/core",
+    "src/migrations",
+    "src/modules/todos",
+]
+
+[workspace.dependencies]
+actix-web = "4.13.0"
+chrono = { version = "0.4.44", features = ["serde"] }
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+async-trait = "0.1.89"
+uuid = { version = "1.23.0", features = ["v7"] }
+dotenv = "0.15.0"
+sea-orm = { version = "1.1.20", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
+thiserror = "2.0.18"
+validator = { version = "0.20.0", features = ["derive"] }
+serde_path_to_error = "0.1.20"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter"] }
 
 [dependencies]
-actix-web = "4.9.0"
-chrono = { version = "0.4.40", features = ["serde"] }
-serde = { version = "1.0.218", features = ["derive"] }
-async-trait = "0.1.86"
-uuid = { version = "1.15.1", features = ["v4"] }
-dotenv = "0.15.0"
-err-derive = "0.3.1"
-futures = "0.3.31"
-utoipa = { version = "5.3.1", features = ["actix_extras", "chrono"] }
-utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web"] }
-sea-orm = { version = "1.1.0", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
-
+shared = { path = "src/core" }
+todos = { path = "src/modules/todos" }
+actix-web.workspace = true
