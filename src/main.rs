@@ -1,32 +1,22 @@
-use crate::settings::docs_setting::ApiDoc;
-use actix_web::{get, App, HttpServer, Responder};
-use dotenv::dotenv;
-use utoipa::OpenApi;
-use utoipa_swagger_ui::SwaggerUi;
-
-mod common;
-mod modules;
-mod settings;
+use actix_web::{App, HttpServer, Responder, get};
+use shared::Env;
 
 #[get("/")]
 async fn index() -> impl Responder {
-    return "Hello, world!";
+    "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment. - Buddha"
 }
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv().ok();
-    settings::database_setting::setting().await.unwrap();
+    shared::initialize().await;
 
-    HttpServer::new(|| {
+    HttpServer::new(move || {
         App::new()
             .service(index)
-            .configure(|cfg| modules::todos::configure(cfg))
-            .service(
-                SwaggerUi::new("/docs/{_:.*}").url("/api-docs/openapi.json", ApiDoc::openapi()),
-            )
+            .configure(|config| shared::configure(config))
+            .configure(|config| todos::configure(config, shared::get_db_connection()))
     })
-    .bind("0.0.0.0:3000")?
+    .bind(format!("0.0.0.0:{}", Env::instance().app_port))?
     .run()
     .await
 }

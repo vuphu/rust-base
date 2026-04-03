@@ -1,0 +1,14 @@
+[package]
+name = "todos"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+shared = { path = "../../core" }
+actix-web.workspace = true
+chrono.workspace = true
+serde.workspace = true
+async-trait.workspace = true
+uuid.workspace = true
+sea-orm.workspace = true
+validator.workspace = true
