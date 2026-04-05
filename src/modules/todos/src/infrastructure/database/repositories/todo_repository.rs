@@ -22,7 +22,7 @@ impl TodoRepositoryImpl {
 impl BaseRepository<TodoEntity> for TodoRepositoryImpl {
     async fn find_all(&self) -> Result<Vec<TodoEntity>, Error> {
         let todos = todo_model::Entity::find().all(&*self.connection).await?;
-        Ok(todos.into_iter().map(|m| m.into()).collect())
+        Ok(todos.into_iter().map(|item| item.into()).collect())
     }
 }
 

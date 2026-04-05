@@ -1,4 +1,4 @@
-use super::super::entities::todo_entity::TodoEntity;
+use crate::domain::entities::todo_entity::TodoEntity;
 use async_trait::async_trait;
 use shared::{BaseRepository, Error};
 

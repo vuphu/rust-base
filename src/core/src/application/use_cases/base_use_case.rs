@@ -1,4 +1,4 @@
-use super::super::exceptions::Exception;
+use crate::application::exceptions::Exception;
 use async_trait::async_trait;
 
 #[async_trait]
