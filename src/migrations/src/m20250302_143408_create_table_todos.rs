@@ -9,51 +9,30 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table(Todos::Table)
+                    .table("todos")
                     .if_not_exists()
+                    .col(pk_uuid("id").default(Expr::cust("uuidv7()")))
                     .col(
-                        ColumnDef::new(Todos::Id)
-                            .uuid()
-                            .default(Expr::cust("uuidv7()"))
-                            .not_null()
-                            .primary_key(),
-                    )
-                    .col(
-                        ColumnDef::new(Todos::CreatedAt)
-                            .timestamp()
+                        timestamp("created_at")
                             .not_null()
                             .default(Expr::current_timestamp()),
                     )
                     .col(
-                        ColumnDef::new(Todos::UpdatedAt)
-                            .timestamp()
+                        timestamp("updated_at")
                             .not_null()
                             .default(Expr::current_timestamp()),
                     )
-                    .col(ColumnDef::new(Todos::DeletedAt).timestamp().null())
-                    .col(ColumnDef::new(Todos::Title).string().not_null())
-                    .col(ColumnDef::new(Todos::DueDate).timestamp().not_null())
+                    .col(timestamp("deleted_at").null())
+                    .col(string("title").not_null())
+                    .col(timestamp("due_date").not_null())
                     .to_owned(),
             )
-            .await?;
-
-        Ok(())
+            .await
     }
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table(Todos::Table).to_owned())
+            .drop_table(Table::drop().table("todos").to_owned())
             .await
     }
-}
-
-#[derive(DeriveIden)]
-enum Todos {
-    Table,
-    Id,
-    CreatedAt,
-    UpdatedAt,
-    DeletedAt,
-    Title,
-    DueDate,
 }
