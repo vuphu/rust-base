@@ -30,7 +30,7 @@ where
 
             let data: T = serde_path_to_error::deserialize(deserializer).map_err(|error| {
                 let mut fields = HashMap::new();
-                fields.insert(error.path().to_string(), vec!["REQUIRED".to_string()]);
+                fields.insert(error.path().to_string(), vec!["required".to_string()]);
                 HttpException::UnprocessableEntity(fields)
             })?;
 

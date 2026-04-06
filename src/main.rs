@@ -1,10 +1,6 @@
-use actix_web::{App, HttpServer, Responder, get};
-use shared::Env;
-
-#[get("/")]
-async fn index() -> impl Responder {
-    "Do not dwell in the past, do not dream of the future, concentrate the mind on the present moment. - Buddha"
-}
+use actix_web::middleware::from_fn;
+use actix_web::{App, HttpServer};
+use shared::{Env, request_context_middleware};
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
@@ -12,7 +8,7 @@ async fn main() -> std::io::Result<()> {
 
     HttpServer::new(move || {
         App::new()
-            .service(index)
+            .wrap(from_fn(request_context_middleware))
             .configure(|config| shared::configure(config))
             .configure(|config| todos::configure(config, shared::get_db_connection()))
     })

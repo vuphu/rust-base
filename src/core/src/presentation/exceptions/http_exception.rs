@@ -1,6 +1,7 @@
 use crate::application::exceptions::Exception;
 use actix_web::http::StatusCode;
 use actix_web::{HttpResponse, ResponseError};
+use rust_i18n::t;
 use serde::Serialize;
 use std::collections::HashMap;
 use tracing::error;
@@ -11,6 +12,8 @@ pub enum HttpException {
     Application(#[from] Exception),
     #[error("Validation Exception")]
     UnprocessableEntity(HashMap<String, Vec<String>>),
+    #[error("Internal Server Error: {0}")]
+    InternalServerError(String),
 }
 
 impl ResponseError for HttpException {
@@ -22,6 +25,7 @@ impl ResponseError for HttpException {
                 Exception::InternalServerError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             },
             HttpException::UnprocessableEntity(_) => StatusCode::UNPROCESSABLE_ENTITY,
+            HttpException::InternalServerError(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 
@@ -36,12 +40,23 @@ impl ResponseError for HttpException {
 
         let response = JsonError {
             status: self.status_code().as_u16(),
-            message: match self {
+            message: t!(match self {
                 HttpException::Application(err) => err.to_string(),
                 err => err.to_string(),
-            },
+            }).to_string(),
             fields: match self {
-                HttpException::UnprocessableEntity(fields) => Some(fields.clone()),
+                HttpException::UnprocessableEntity(fields) => Some(
+                    fields
+                        .iter()
+                        .map(|(field, errors)| {
+                            let translated = errors
+                                .iter()
+                                .map(|e| t!(format!("validation.{}", e)).to_string())
+                                .collect();
+                            (field.clone(), translated)
+                        })
+                        .collect(),
+                ),
                 _ => None,
             },
         };

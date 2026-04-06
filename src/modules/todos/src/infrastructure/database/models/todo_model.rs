@@ -1,5 +1,5 @@
+use chrono::Timelike;
 use crate::domain::entities::todo_entity::TodoEntity;
-use chrono::NaiveDateTime;
 use sea_orm::entity::prelude::*;
 use serde::{Deserialize, Serialize};
 
@@ -9,9 +9,9 @@ pub struct Model {
     #[sea_orm(primary_key)]
     id: Uuid,
     title: String,
-    due_date: NaiveDateTime,
-    created_at: NaiveDateTime,
-    updated_at: NaiveDateTime,
+    due_date: DateTime,
+    created_at: DateTime,
+    updated_at: DateTime,
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -24,9 +24,9 @@ impl From<Model> for TodoEntity {
         TodoEntity {
             id: model.id,
             title: model.title.clone(),
-            due_date: model.due_date,
-            created_at: model.created_at,
-            updated_at: model.updated_at,
+            due_date: model.due_date.and_utc(),
+            created_at: model.created_at.with_nanosecond(0).unwrap().and_utc(),
+            updated_at: model.updated_at.with_nanosecond(0).unwrap().and_utc(),
         }
     }
 }

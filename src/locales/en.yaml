@@ -1,0 +1,7 @@
+validation:
+  required: "The field is required"
+
+error:
+  modules:
+    todos:
+      due_date_in_past: "Due date must be in the future"

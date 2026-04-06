@@ -1,9 +1,12 @@
+rust_i18n::i18n!("../locales");
+
 mod application;
 mod domain;
 mod infrastructure;
 mod presentation;
 
 use crate::infrastructure::config::env_config;
+use crate::infrastructure::config::i18n_config;
 use crate::infrastructure::config::trace_config;
 use crate::infrastructure::database::sql_connection;
 use actix_web::web;
@@ -18,14 +21,17 @@ pub use infrastructure::database::sql_connection::get_db_connection;
 pub use presentation::exceptions::http_exception::HttpException;
 pub use presentation::extensions::to_http_response::ToHttpResponse;
 pub use presentation::extensions::to_response_dto::ToResponseDto;
+pub use presentation::extractors::request_context::RequestContext;
 pub use presentation::extractors::validated_json::ValidatedJson;
+pub use presentation::middlewares::request_context_middleware::request_context_middleware;
 
 pub async fn initialize() {
     env_config::initialize();
     trace_config::initialize();
+    i18n_config::initialize();
     sql_connection::initialize().await;
 }
 
-pub fn configure(_: &mut web::ServiceConfig) {
-    // No-op
+pub fn configure(config: &mut web::ServiceConfig) {
+    presentation::controllers::app_controller::configure(config);
 }

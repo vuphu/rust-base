@@ -1,5 +1,5 @@
 use crate::domain::entities::todo_entity::TodoEntity;
-use chrono::NaiveDateTime;
+use chrono::{DateTime, Utc};
 use serde::Serialize;
 use uuid::Uuid;
 
@@ -7,9 +7,9 @@ use uuid::Uuid;
 pub struct TodoResponse {
     id: Uuid,
     title: String,
-    due_date: NaiveDateTime,
-    created_at: NaiveDateTime,
-    updated_at: NaiveDateTime,
+    due_date: DateTime<Utc>,
+    created_at: DateTime<Utc>,
+    updated_at: DateTime<Utc>,
 }
 
 impl From<TodoEntity> for TodoResponse {

@@ -2,7 +2,7 @@ use crate::domain::entities::todo_entity::TodoEntity;
 use crate::domain::repositories::todo_repository::TodoRepository;
 use crate::infrastructure::database::models::todo_model;
 use async_trait::async_trait;
-use chrono::NaiveDateTime;
+use chrono::{DateTime, Utc};
 use sea_orm::ActiveValue::Set;
 use sea_orm::{DatabaseConnection, EntityTrait};
 use shared::{BaseRepository, Error};
@@ -31,11 +31,11 @@ impl TodoRepository for TodoRepositoryImpl {
     async fn create_todo(
         &self,
         title: String,
-        due_date: NaiveDateTime,
+        due_date: DateTime<Utc>,
     ) -> Result<TodoEntity, Error> {
         let todo_draft = todo_model::ActiveModel {
             title: Set(title),
-            due_date: Set(due_date),
+            due_date: Set(due_date.naive_utc()),
             ..Default::default()
         };
 

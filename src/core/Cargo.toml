@@ -15,3 +15,4 @@ serde_json.workspace = true
 validator.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
+rust-i18n.workspace = true
