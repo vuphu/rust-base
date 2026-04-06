@@ -2,7 +2,11 @@
 name = "rust-base"
 version = "1.0.0"
 authors = ["vuphu <vuphu.itus@gmail.com>"]
-edition = "2021"
+edition = "2024"
+
+[[bin]]
+name = "app"
+path = "src/main.rs"
 
 [workspace]
 members = [
