@@ -43,7 +43,8 @@ impl ResponseError for HttpException {
             message: t!(match self {
                 HttpException::Application(err) => err.to_string(),
                 err => err.to_string(),
-            }).to_string(),
+            })
+            .to_string(),
             fields: match self {
                 HttpException::UnprocessableEntity(fields) => Some(
                     fields
