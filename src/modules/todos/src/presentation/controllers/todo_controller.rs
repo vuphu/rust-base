@@ -4,9 +4,7 @@ use crate::domain::repositories::todo_repository::TodoRepository;
 use crate::presentation::dtos::requests::create_todo_request::CreateTodoRequest;
 use crate::presentation::dtos::responses::todo_response::TodoResponse;
 use actix_web::{HttpResponse, get, post, web};
-use shared::{
-    HttpException, RequestContext, ToHttpResponse, ToResponseDto, UseCase, ValidatedJson,
-};
+use shared::{HttpException, ToHttpResponse, ToResponseDto, UseCase, ValidatedJson};
 use std::sync::Arc;
 
 pub fn configure(config: &mut web::ServiceConfig) {

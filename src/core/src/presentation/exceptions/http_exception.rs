@@ -52,7 +52,7 @@ impl ResponseError for HttpException {
                         .map(|(field, errors)| {
                             let translated = errors
                                 .iter()
-                                .map(|e| t!(format!("validation.{}", e)).to_string())
+                                .map(|e| t!(format!("validation.{}", e)).into())
                                 .collect();
                             (field.clone(), translated)
                         })

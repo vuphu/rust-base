@@ -26,8 +26,8 @@ impl CreateTodoUseCase {
 impl UseCase<CreateTodoInput, TodoEntity> for CreateTodoUseCase {
     async fn handle(&self, input: CreateTodoInput) -> Result<TodoEntity, Exception> {
         if input.due_date < Utc::now() {
-            return Err(Exception::bad_request(
-                "error.modules.todos.due_date_in_past",
+            return Err(Exception::BadRequest(
+                "error.modules.todos.due_date_in_past".into(),
             ));
         }
 
