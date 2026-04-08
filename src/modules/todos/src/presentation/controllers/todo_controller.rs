@@ -27,7 +27,7 @@ pub async fn get_todos(
         .handle(())
         .await
         .vec_response(TodoResponse::from)
-        .to_http_response()
+        .ok_response()
 }
 
 #[utoipa::path(
@@ -51,5 +51,5 @@ async fn create_todo(
         })
         .await
         .response(TodoResponse::from)
-        .to_http_response()
+        .created_response()
 }
