@@ -1,5 +1,6 @@
 use actix_web::test::{TestRequest, call_service};
 use chrono::Utc;
+use fake::{Fake, faker::lorem::en as lorem};
 use serde_json::json;
 
 use crate::e2e::initialize;
@@ -27,7 +28,7 @@ mod create_todo {
         let request = TestRequest::post()
             .uri("/todos")
             .set_json(&json!({
-                "title": "Todo A",
+                "title": lorem::Word().fake::<String>(),
                 "due_date": (Utc::now() + chrono::Duration::days(1)).to_rfc3339()
             }))
             .to_request();

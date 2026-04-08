@@ -19,3 +19,4 @@ serde_json.workspace = true
 actix-rt.workspace = true
 tokio.workspace = true
 actix-http.workspace = true
+fake.workspace = true
