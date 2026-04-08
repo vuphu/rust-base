@@ -18,3 +18,5 @@ tracing-subscriber.workspace = true
 rust-i18n.workspace = true
 scalar_api_reference.workspace = true
 utoipa.workspace = true
+tokio.workspace = true
+chrono.workspace = true

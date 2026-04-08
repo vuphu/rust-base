@@ -21,10 +21,7 @@ pub fn initialize() {
 
     let config = Env {
         app_env: env::var("APP_ENV").unwrap_or_else(|_| "development".to_string()),
-        app_port: env::var("APP_PORT")
-            .ok()
-            .and_then(|value| value.parse().ok())
-            .unwrap_or(3000),
+        app_port: env::var("APP_PORT").ok().and_then(|value| value.parse().ok()).unwrap_or(3000),
         database_url: env::var("DATABASE_URL").expect("DATABASE_URL must be set"),
     };
 

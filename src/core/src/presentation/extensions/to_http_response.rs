@@ -22,23 +22,20 @@ where
     HttpException: From<E>,
 {
     fn ok_response(self) -> Result<HttpResponse, HttpException> {
-        self.map(|data| HttpResponse::Ok().json(data))
-            .map_err(|err| HttpException::from(err))
+        self.map(|data| HttpResponse::Ok().json(data)).map_err(|err| HttpException::from(err))
     }
 
     fn created_response(self) -> Result<HttpResponse, HttpException>
     where
         T: Serialize,
     {
-        self.map(|data| HttpResponse::Created().json(data))
-            .map_err(|err| HttpException::from(err))
+        self.map(|data| HttpResponse::Created().json(data)).map_err(|err| HttpException::from(err))
     }
 
     fn no_response(self) -> Result<HttpResponse, HttpException>
     where
         T: Serialize,
     {
-        self.map(|_| HttpResponse::NoContent().finish())
-            .map_err(|err| HttpException::from(err))
+        self.map(|_| HttpResponse::NoContent().finish()).map_err(|err| HttpException::from(err))
     }
 }

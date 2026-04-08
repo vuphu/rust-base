@@ -39,10 +39,7 @@ mod create_todo {
     #[actix_rt::test]
     async fn should_return_unprocessable_entity() {
         let app = initialize().await;
-        let request = TestRequest::post()
-            .uri("/todos")
-            .set_json(&json!({}))
-            .to_request();
+        let request = TestRequest::post().uri("/todos").set_json(&json!({})).to_request();
         let response = call_service(&app, request).await;
         assert_eq!(response.status(), 422);
     }

@@ -39,9 +39,8 @@ impl TodoRepository for TodoRepositoryImpl {
             ..Default::default()
         };
 
-        let todo = todo_model::Entity::insert(todo_draft)
-            .exec_with_returning(&*self.connection)
-            .await?;
+        let todo =
+            todo_model::Entity::insert(todo_draft).exec_with_returning(&*self.connection).await?;
 
         Ok(todo.into())
     }

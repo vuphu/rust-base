@@ -28,7 +28,6 @@ impl<T, E> ToResponseDto<T, E> for Result<T, E> {
         F: FnMut(I) -> R,
         HttpException: From<E>,
     {
-        self.map(|val| val.into_iter().map(mapper).collect())
-            .map_err(HttpException::from)
+        self.map(|val| val.into_iter().map(mapper).collect()).map_err(HttpException::from)
     }
 }

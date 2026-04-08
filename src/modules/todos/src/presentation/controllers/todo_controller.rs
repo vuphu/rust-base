@@ -23,11 +23,7 @@ pub async fn get_todos(
     todo_repository: web::Data<Arc<dyn TodoRepository>>,
 ) -> Result<HttpResponse, HttpException> {
     let use_case = GetTodosUseCase::new(todo_repository.get_ref().clone());
-    use_case
-        .handle(())
-        .await
-        .vec_response(TodoResponse::from)
-        .ok_response()
+    use_case.handle(()).await.vec_response(TodoResponse::from).ok_response()
 }
 
 #[utoipa::path(
@@ -45,10 +41,7 @@ async fn create_todo(
     let dto = dto.into_inner();
     let use_case = CreateTodoUseCase::new(todo_repository.get_ref().clone());
     use_case
-        .handle(CreateTodoInput {
-            title: dto.title,
-            due_date: dto.due_date,
-        })
+        .handle(CreateTodoInput { title: dto.title, due_date: dto.due_date })
         .await
         .response(TodoResponse::from)
         .created_response()

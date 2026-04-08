@@ -3,7 +3,7 @@ use crate::domain::repositories::todo_repository::TodoRepository;
 use async_trait::async_trait;
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
-use shared::{Exception, UseCase};
+use shared::{Exception, UseCase, ensure_request, utils::is_future};
 use std::sync::Arc;
 
 #[derive(Serialize, Deserialize)]
@@ -25,17 +25,8 @@ impl CreateTodoUseCase {
 #[async_trait]
 impl UseCase<CreateTodoInput, TodoEntity> for CreateTodoUseCase {
     async fn handle(&self, input: CreateTodoInput) -> Result<TodoEntity, Exception> {
-        if input.due_date < Utc::now() {
-            return Err(Exception::BadRequest(
-                "error.modules.todos.due_date_in_past".into(),
-            ));
-        }
-
-        let todo = self
-            .todo_repository
-            .create_todo(input.title, input.due_date)
-            .await?;
-
+        ensure_request!(is_future(input.due_date), "error.modules.todos.due_date_in_past");
+        let todo = self.todo_repository.create_todo(input.title, input.due_date).await?;
         Ok(todo)
     }
 }

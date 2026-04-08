@@ -3311,6 +3311,7 @@ version = "0.1.0"
 dependencies = [
  "actix-web",
  "async-trait",
+ "chrono",
  "dotenv",
  "rust-i18n",
  "scalar_api_reference",
@@ -3319,6 +3320,7 @@ dependencies = [
  "serde_json",
  "serde_path_to_error",
  "thiserror",
+ "tokio",
  "tracing",
  "tracing-subscriber",
  "utoipa",
@@ -3816,7 +3818,6 @@ dependencies = [
  "serde",
  "serde_json",
  "shared",
- "tokio",
  "utoipa",
  "uuid",
  "validator",

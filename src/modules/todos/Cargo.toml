@@ -17,6 +17,5 @@ serde_json.workspace = true
 
 [dev-dependencies]
 actix-rt.workspace = true
-tokio.workspace = true
 actix-http.workspace = true
 fake.workspace = true
