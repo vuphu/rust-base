@@ -16,3 +16,5 @@ validator.workspace = true
 tracing.workspace = true
 tracing-subscriber.workspace = true
 rust-i18n.workspace = true
+scalar_api_reference.workspace = true
+utoipa.workspace = true

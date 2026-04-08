@@ -6,11 +6,18 @@ use crate::presentation::dtos::responses::todo_response::TodoResponse;
 use actix_web::{HttpResponse, get, post, web};
 use shared::{HttpException, ToHttpResponse, ToResponseDto, UseCase, ValidatedJson};
 use std::sync::Arc;
+use utoipa;
 
 pub fn configure(config: &mut web::ServiceConfig) {
     config.service(web::scope("/todos").service(get_todos).service(create_todo));
 }
 
+#[utoipa::path(
+    get,
+    path = "/todos",
+    tag = "todos",
+    responses((status = 200, body = [TodoResponse]))
+)]
 #[get("")]
 pub async fn get_todos(
     todo_repository: web::Data<Arc<dyn TodoRepository>>,
@@ -23,6 +30,13 @@ pub async fn get_todos(
         .to_http_response()
 }
 
+#[utoipa::path(
+    post,
+    path = "/todos",
+    tag = "todos",
+    request_body = CreateTodoRequest,
+    responses((status = 200, body = TodoResponse))
+)]
 #[post("")]
 async fn create_todo(
     todo_repository: web::Data<Arc<dyn TodoRepository>>,

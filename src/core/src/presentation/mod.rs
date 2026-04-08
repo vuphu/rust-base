@@ -3,3 +3,4 @@ pub mod exceptions;
 pub mod extensions;
 pub mod extractors;
 pub mod middlewares;
+pub mod document;

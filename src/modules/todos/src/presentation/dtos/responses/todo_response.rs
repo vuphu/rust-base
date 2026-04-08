@@ -1,9 +1,10 @@
 use crate::domain::entities::todo_entity::TodoEntity;
 use chrono::{DateTime, Utc};
 use serde::Serialize;
+use utoipa::ToSchema;
 use uuid::Uuid;
 
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 pub struct TodoResponse {
     id: Uuid,
     title: String,
