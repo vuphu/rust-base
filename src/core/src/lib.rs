@@ -7,7 +7,6 @@ mod presentation;
 
 use actix_web::web;
 use infrastructure::config::env_config;
-use infrastructure::config::i18n_config;
 use infrastructure::config::trace_config;
 use infrastructure::database::sql_connection;
 
@@ -29,7 +28,6 @@ pub use presentation::middlewares::request_context_middleware::request_context_m
 pub async fn initialize() {
     env_config::initialize();
     trace_config::initialize();
-    i18n_config::initialize();
     sql_connection::initialize().await;
 }
 

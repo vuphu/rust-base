@@ -1,3 +1,3 @@
 pub mod controllers;
-pub mod dtos;
 pub mod document;
+pub mod dtos;
