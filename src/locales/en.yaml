@@ -1,5 +1,6 @@
 validation:
-  required: "The field is required"
+  invalid_type: "Value is not in the expected format"
+  invalid: "Value does not meet requirements"
 
 error:
   modules:
