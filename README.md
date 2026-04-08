@@ -15,10 +15,10 @@ cargo watch -x run
 
 ### Run migrations
 ```bash
-sea-orm-cli migrate run
+cargo run -p migrations --bin migrations up
 ```
 
 To revert the last migration:
 ```bash
-sea-orm-cli migrate down
+cargo run -p migrations --bin migrations down
 ```

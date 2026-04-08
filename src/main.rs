@@ -23,7 +23,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .app_data(web::Data::new(api_doc.clone()))
             .wrap(from_fn(request_context_middleware))
-            .configure(|config| shared::configure(config))
+            .configure(shared::configure)
             .configure(|config| todos::configure(config, shared::get_db_connection()))
     })
     .bind(format!("0.0.0.0:{}", Env::instance().app_port))?

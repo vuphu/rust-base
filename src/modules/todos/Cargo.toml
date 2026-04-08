@@ -6,16 +6,16 @@ edition = "2024"
 [dependencies]
 shared = { path = "../../core" }
 actix-web.workspace = true
-chrono.workspace = true
-serde.workspace = true
 async-trait.workspace = true
-uuid.workspace = true
+chrono.workspace = true
 sea-orm.workspace = true
-validator.workspace = true
-utoipa.workspace = true
+serde.workspace = true
 serde_json.workspace = true
+utoipa.workspace = true
+uuid.workspace = true
+validator.workspace = true
 
 [dev-dependencies]
-actix-rt.workspace = true
 actix-http.workspace = true
+actix-rt.workspace = true
 fake.workspace = true
